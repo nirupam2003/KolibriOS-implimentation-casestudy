@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Round Robin Scheduling</title>
+    <link rel="stylesheet" type="text/css" href="style2.css">
+  </head>
+  <body>
+    <div class="container">
+      <h1>Round Robin Scheduling</h1>
+      <form id="rr-form">
+        <div class="form-group">
+          <label for="num-processes">Number of processes:</label>
+          <input type="number" id="num-processes" name="num-processes" required>
+        </div>
+        <div class="form-group">
+          <label for="time-quantum">Time quantum:</label>
+          <input type="number" id="time-quantum" name="time-quantum" required>
+        </div>
+        <div id="processes-container">
+          <div class="process-form">
+            <h3>Process 1</h3>
+            <div class="form-group">
+              <label for="arrival-time-1">Arrival time:</label>
+              <input type="number" id="arrival-time-1" name="arrival-time-1" required>
+            </div>
+            <div class="form-group">
+              <label for="burst-time-1">Burst time:</label>
+              <input type="number" id="burst-time-1" name="burst-time-1" required>
+            </div>
+          </div>
+        </div>
+        <button type="button" id="add-process-btn">Add process</button>
+        <button type="submit" id="submit-btn">Submit</button>
+      </form>
+      <div id="result-container">
+        <h2>Result:</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Process</th>
+              <th>Waiting time</th>
+              <th>Turnaround time</th>
+            </tr>
+          </thead>
+          <tbody id="result-table-body"></tbody>
+        </table>
+      </div>
+    </div>
+    <script src="rd.js"></script>
+  </body>
+</html>

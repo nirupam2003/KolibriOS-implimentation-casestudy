@@ -1,0 +1,326 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  color: #fff;
+  background-color: #000;
+}
+
+/* Gradient CSS */
+.blob {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 450px;
+  height: 450px;
+  border-radius: 400%;
+  background-image: linear-gradient(#1100ff 10%, #ff00f2);
+  filter: blur(250px);
+  transition: all 450ms ease-out;
+  position: fixed;
+  pointer-events: none;
+  left: 0;
+  top: 0;
+  transform: translate(calc(-50% + 15px), -50%);
+  z-index: -1;
+}
+
+/* Random CSS for Demo */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 100vh;
+}
+
+.content-parent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.content h1 {
+  font-size: 3vw;
+  text-align: center;
+}
+
+.content p {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 3rem;
+}
+
+.buttons a {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  text-decoration: none;
+  color: #fff;
+  padding: 10px 2rem;
+  margin: 0px 6px;
+  border-radius: 25px;
+}
+
+.buttons a:nth-child(1) {
+  color: #121212;
+  background-color: #ffffff;
+  transition: all 0.3s ease;
+}
+
+.buttons a:nth-child(2) {
+  border: 1px solid #fff;
+  transition: all 0.3s ease;
+}
+
+@media only screen and (max-width: 700px) {
+  .content-parent {
+    width: 90%;
+  }
+
+  .content h1 {
+    font-size: 2rem;
+  }
+
+  .buttons a {
+    padding: 6px 1rem;
+  }
+}
+
+.gantt_block {
+  text-align: center;
+  padding: 0.4em;
+  height: 5em;
+  float: left;
+  display: block;
+  color: whitesmoke;
+  font-weight: 500;
+}
+
+h1 {
+  color: rgb(255, 255, 255);
+  text-align: center;
+  font-family: "Lato";
+  margin-top: 2em;
+}
+h2 {
+  color: rgb(255, 255, 255);
+  text-align: center;
+  font-family: "Lato";
+}
+
+#card {
+  width: 30%;
+  height: 40%;
+  background-color: rgba(255, 255, 255, 0.774);
+  box-shadow: 0px 2px 6px -1px rgba(0, 0, 0, 0.13);
+  margin-top: 10em;
+  padding: 1em;
+  border-radius: 3%;
+}
+
+button {
+  background-color: #69506c;
+  border: none;
+  width: 10em;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  display: inline-block;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+a {
+  text-decoration-line: none;
+  color: rgb(255, 255, 255);
+}
+
+#preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #000000;
+  z-index: 99;
+}
+
+#status {
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  background-image: url(https://i.pinimg.com/originals/f9/0f/76/f90f7689233948005f465d98ead56d44.gif);
+  background-repeat: no-repeat;
+  background-position: center;
+  margin: -100px 0 0 -100px;
+}
+
+ul,
+li {
+  margin: 0px;
+  list-style-type: none;
+}
+
+input {
+  display: block;
+  outline: none;
+  border: none !important;
+}
+textarea {
+  display: block;
+  outline: none;
+}
+
+textarea:focus,
+input:focus {
+  border-color: transparent !important;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+iframe {
+  border: none !important;
+}
+
+.limiter {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.container-table100 {
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.wrap-table100 {
+  width: 1170px;
+}
+
+table {
+  border-spacing: 1;
+  border-collapse: collapse;
+  border-radius: 7px;
+  overflow: hidden;
+  margin: 0 auto;
+  position: relative;
+  background-color: #292929;
+  width: 800px;
+  border-collapse: collapse;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+table * {
+  position: relative;
+}
+
+table td,
+table th {
+  padding-left: 8px;
+  border: 1px solid #5b416c;
+}
+
+table thead tr {
+  height: 60px;
+  background: #5b416c;
+  font-size: 20px;
+  font-weight: 400;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+table tbody tr {
+  height: 50px;
+  font-weight: 500;
+  color: #eee;
+  background-color: #292929;
+}
+
+table tbody tr:last-child {
+  border: 0;
+}
+
+table td,
+table th {
+  text-align: left;
+}
+
+table td.l,
+table th.l {
+  text-align: left;
+}
+
+table td.c,
+table th.c {
+  text-align: left;
+}
+
+table td.r,
+table th.r {
+  text-align: left;
+}
+
+.table100-head th {
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.2;
+  font-weight: unset;
+}
+
+tbody tr {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.2;
+}
+
+tbody tr:hover {
+  background-color: #5b416c;
+  cursor: pointer;
+}
+
+.title {
+  font-size: 4rem;
+  font-family: "Montserrat", sans-serif;
+  text-transform: uppercase;
+}
+
+.title::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background-color: #6b3a70;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.title:hover::after {
+  transform: scaleX(1);
+}

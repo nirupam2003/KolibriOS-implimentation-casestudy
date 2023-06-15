@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+   <title>Priority Scheduling</title>
+    <link rel="stylesheet" type="text/css" href="style2.css">
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <div class="fade-in-text">
+    <p>Priority Scheduling</p>
+  </div>
+  <div class="fade-in-form">
+    <form>
+      <div class="inp">
+        <div class="ip1">
+          <label for="arrivalTime">Arrival Time:</label>
+          <input type="number" id="arrivalTime" name="arrivalTime" required>
+        </div>
+
+      <div class="ip2">
+      <label for="burstTime">Burst Time:</label>    
+      <input type="number" id="burstTime" name="burstTime" required>
+    </div>
+      <div class="ip3">
+      <label for="processId">Process ID:</label>
+      <input type="number" id="processId" name="processId" required>
+    </div>
+     
+      <div class="ip4">
+      <label for="priority">Priority:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+      <input  type="number" id="priority" name="priority" required>
+      </div>
+    </div>
+      
+    <br>
+    <br>
+      <center><button type="button" onclick="addProcess()">Add</button>
+      <button type="button" onclick="calculateSchedule()">Run</button>
+      <button type="button" onclick="window.location.href = 'C:\\Users\\Lenovo\\Downloads\\solid\\index.html';">BTM?</button>
+    </center>
+      <div id="output"></div>
+
+
+    </form>
+
+    <center><div class="tbl-header">
+    <table id="processTable">
+      <thead>
+        <tr>
+          <th>Process ID</th>
+          <th>Arrival Time</th>
+          <th>Burst Time</th>
+          <th>Priority</th>
+          <th>Completion Time</th>
+          <th>Waiting time</th>
+          <th>TAT</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Process rows will be dynamically added here -->
+      </tbody>
+    </table>
+  </div></center>
+</div>
+
+  </body> 
+
+</html>

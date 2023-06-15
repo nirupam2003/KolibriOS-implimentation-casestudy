@@ -1,0 +1,46 @@
+.sidePanelMenu {
+  background-color: #ffffff; /* light grey background */
+  height: 100vh;
+  width: 250px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  padding: 1rem;
+  color: rgb(71, 71, 71);
+  border: 2px solid #ccc; /* Add border with 1px thickness and light grey color */
+}
+
+
+.menuList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menuItem {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border-radius: 5px;
+  transition: background-color 0.2s ease-in-out;
+   background-color: #f4f4f4; 
+}
+
+
+.selected-link {
+  font-weight: bolder;
+}
+
+.menuItem:hover {
+  background-color: #e0e0e0ac; 
+  color: rgb(33, 33, 33);
+  cursor: default;
+}
+
+.menuItem.active {
+  font-weight: bolder;
+  background-color: #007aff; 
+  color: rgb(255, 255, 255);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.426);
+}
+
+

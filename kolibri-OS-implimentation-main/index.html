@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Priority Scheduling</title>
+	<style>
+		table {
+			border-collapse: collapse;
+			width: 50%;
+			margin: 0 auto;
+			text-align: center;
+		}
+
+		table td {
+			border: 1px solid black;
+			padding: 5px;
+		}
+
+		thead td {
+			font-weight: bold;
+			background-color: #ddd;
+		}
+	</style>
+</head>
+<body>
+	<h1>Priority Scheduling</h1>
+	<table>
+		<thead>
+			<tr>
+				<td>Process</td>
+				<td>Priority</td>
+				<td>Burst Time</td>
+				<td>Waiting Time</td>
+				<td>Turnaround Time</td>
+			</tr>
+		</thead>
+		<tbody id="table-body"></tbody>
+	</table>
+	<button onclick="runPriorityScheduling()">Run Priority Scheduling</button>
+	<script src="priority-scheduling.js"></script>
+</body>
+</html>

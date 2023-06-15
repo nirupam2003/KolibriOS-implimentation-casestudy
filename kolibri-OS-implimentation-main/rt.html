@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Round Robin Scheduling Calculator</title>
+    <link rel="stylesheet" type="text/css" href="style2.css">
+</head>
+<body>
+    <div class="fade-in-text">
+        <p>Round Robin Scheduling Calculator</p>
+    </div>
+    <br>
+    <br>
+    <div class="fade-in-form">
+        <form id="rr-form">
+            <center><label style="padding-left: 50px;" for="time-quantum">Time quantum:</label>
+                <input type="number" id="time-quantum" name="time-quantum" min="1" required></center>
+
+            <br>    
+            <center><label  for="num-processes">enter no of processes:</label>
+                <input type="number" id="num-processes" name="num-processes" min="1" required></center>
+
+            <center >
+                <br>
+                <br>
+                <div class="tbl-header">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Process&nbsp;&nbsp;</th>
+                                <th >Arrival time</th>
+
+                                <th>Burst time&nbsp;</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Dynamic rows for process inputs -->
+                        </tbody>
+                    </table>
+                </div>
+            </center>
+            <br>
+            <br>
+            <center >
+                <button type="submit">Calculate</button>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button onclick="window.location.href = 'C:\\Users\\Lenovo\\Downloads\\solid\\index.html';" >Home</button>    
+            </center>
+        </form>
+
+        <br>
+        <br>
+
+        <center>
+            <svg id="gantt-chart" style="display: none;"></svg>
+
+            <table id="output-table" style="display: none;">
+                <div class="tbl-header">
+                    <thead >
+                        <tr>
+                            <th style="color: rgb(255, 27, 27);">Process&nbsp;&nbsp;&nbsp;</th>
+                            <th style="color: rgb(255, 27, 27);">Arrival time&nbsp;&nbsp;&nbsp;</th>
+                            <th style="color: rgb(255, 27, 27);">Burst time&nbsp;&nbsp;&nbsp;</th>
+                            <th style="color: rgb(255, 27, 27);">Completion time&nbsp;&nbsp;&nbsp;</th>
+                            <th style="color: rgb(255, 27, 27);">Turnaround time&nbsp;&nbsp;&nbsp;</th>
+                            <th style="color: rgb(255, 27, 27);">Waiting time&nbsp;&nbsp;&nbsp;</th>
+                        </tr>
+                    </thead>
+                </div>
+                <tbody>
+                    <!-- Dynamic rows for output -->
+
+                </tbody>
+
+            </table>
+
+            <div>
+                <br>
+                <h3>The average waiting time:&nbsp;<span id="avgwait"></span></h3>
+                <br>
+                <h3>The average turnaround time:&nbsp;<span id="avgturnaround"></span></h3>
+            </div>
+        </center>
+    </div>
+
+    <script>
+        // Function to calculate the Round Robin scheduling
+        const calculate = () => {
+            // Get the form inputs
+            const numProcesses = parseInt(document.getElementById("num-processes").value);
+            const timeQuantum = parseInt(document.getElementById("time-quantum").value);
+            const arrivalInputs = document.getElementsByName("arrival-time");
+            const burstInputs = document.getElementsByName("burst-time");
+
+            // Create arrays to store the input values
+            const arrivalTimes = [];
+            const burstTimes = [];
+            for (let i = 0; i < numProcesses; i++) {
+                arrivalTimes.push(parseInt(arrivalInputs[i].value));
+                burstTimes.push(parseInt(burstInputs[i].value));
+            }
+
+            // Calculate the completion times, turnaround times, and waiting times
+            const completionTimes = [];
+            const remainingTimes = [...burstTimes];
+            let currentTime = Math.min(...arrivalTimes);
+            let done = false;
+            while (!done) {
+                done = true;
+                for (let i = 0; i < numProcesses; i++) {
+                    if (remainingTimes[i] > 0) {
+                        done = false;
+                        if (remainingTimes[i] <= timeQuantum) {
+                            currentTime += remainingTimes[i];
+                            completionTimes[i] = currentTime;
+                            remainingTimes[i] = 0;
+                        } else {
+                            currentTime += timeQuantum;
+                            remainingTimes[i] -= timeQuantum;
+                        }
+                    }
+                }
+            }
+            const turnaroundTimes = completionTimes.map((completionTime, index) => completionTime - arrivalTimes[index]);
+            const waitingTimes = turnaroundTimes.map((turnaroundTime, index) => turnaroundTime - burstTimes[index]);
+
+            // Output the results to the table
+            const outputTable = document.getElementById("output-table");
+            const tbody = outputTable.getElementsByTagName("tbody")[0];
+            tbody.innerHTML = "";
+            let sumWait = 0;
+            let sumTurnaround = 0;
+            for (let i = 0; i < numProcesses; i++) {
+                const row = document.createElement("tr");
+                const processCell = document.createElement("td");
+                processCell.textContent = i + 1;
+                row.appendChild(processCell);
+                const arrivalCell = document.createElement("td");
+                arrivalCell.textContent = arrivalTimes[i];
+                row.appendChild(arrivalCell);
+                const burstCell = document.createElement("td");
+                burstCell.textContent = burstTimes[i];
+                row.appendChild(burstCell);
+                const completionCell = document.createElement("td");
+                completionCell.textContent = completionTimes[i];
+                row.appendChild(completionCell);
+                const turnaroundCell = document.createElement("td");
+                turnaroundCell.textContent = turnaroundTimes[i];
+                row.appendChild(turnaroundCell);
+                const waitingCell = document.createElement("td");
+                waitingCell.textContent = waitingTimes[i];
+                row.appendChild(waitingCell);
+                tbody.appendChild(row);
+
+                sumWait += waitingTimes[i];
+                sumTurnaround += turnaroundTimes[i];
+            }
+
+            // Show the output table
+            outputTable.style.display = "table";
+
+            // Calculate and output the average waiting time
+            const avgWait = sumWait / numProcesses;
+            const avgWaitCell = document.getElementById("avgwait");
+            avgWaitCell.textContent = avgWait.toFixed(2);
+
+            // Calculate and output the average turnaround time
+            const avgTurnaround = sumTurnaround / numProcesses;
+            const avgTurnaroundCell = document.getElementById("avgturnaround");
+            avgTurnaroundCell.textContent = avgTurnaround.toFixed(2);
+
+            // Generate the Gantt chart
+            const chartContainer = document.getElementById("gantt-chart");
+            chartContainer.innerHTML = "";
+            const chartWidth = 600;
+            const chartHeight = 200;
+            const barHeight = 20;
+            const barSpacing = 10;
+            const maxTime = Math.max(...completionTimes);
+            const timeScale = chartWidth / maxTime;
+
+            for (let i = 0; i < numProcesses; i++) {
+                const processStartTime = arrivalTimes[i];
+                const processEndTime = completionTimes[i];
+                const processWidth = (processEndTime - processStartTime) * timeScale;
+
+                const barContainer = document.createElement("div");
+                barContainer.style.position = "relative";
+                barContainer.style.height = `${barHeight}px`;
+                barContainer.style.marginBottom = `${barSpacing}px`;
+
+                const bar = document.createElement("div");
+                bar.style.position = "absolute";
+                bar.style.width = `${processWidth}px`;
+                bar.style.height = `${barHeight}px`;
+                bar.style.backgroundColor = `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`;
+                bar.style.left = `${processStartTime * timeScale}px`;
+
+                const label = document.createElement("span");
+                label.textContent = `P${i + 1}`;
+                label.style.position = "absolute";
+                label.style.left = "5px";
+                label.style.top = "0";
+
+                barContainer.appendChild(bar);
+                barContainer.appendChild(label);
+                chartContainer.appendChild(barContainer);
+            }
+        }
+
+        // Add event listener to the form submission
+        const rrForm = document.getElementById("rr-form");
+        rrForm.addEventListener("submit", event => {
+            event.preventDefault();
+            calculate();
+        });
+
+        // Add event listener to the number of processes input to dynamically generate rows
+        const numProcessesInput = document.getElementById("num-processes");
+        numProcessesInput.addEventListener("input", event => {
+            const numProcesses = parseInt(numProcessesInput.value);
+            const tbody = document.querySelector("#rr-form tbody");
+            tbody.innerHTML = "";
+            for (let i = 0; i < numProcesses; i++) {
+                const row = document.createElement("tr");
+                const processCell = document.createElement("td");
+                processCell.textContent = i + 1;
+                row.appendChild(processCell);
+                const arrivalCell = document.createElement("td");
+                const arrivalInput = document.createElement("input");
+                arrivalInput.type = "number";
+                arrivalInput.name = "arrival-time";
+                arrivalInput.min = "0";
+                arrivalInput.required = true;
+                arrivalCell.appendChild(arrivalInput);
+                row.appendChild(arrivalCell);
+                const burstCell = document.createElement("td");
+                const burstInput = document.createElement("input");
+                burstInput.type = "number";
+                burstInput.name = "burst-time";
+                burstInput.min = "1";
+                burstInput.required = true;
+                burstCell.appendChild(burstInput);
+                row.appendChild(burstCell);
+                tbody.appendChild(row);
+            }
+
+            // Hide the output table and Gantt chart
+            const outputTable = document.getElementById("output-table");
+            const chartContainer = document.getElementById("gantt-chart");
+            outputTable.style.display = "none";
+            chartContainer.innerHTML = "";
+        });
+    </script>
+</body>
+</html> 
+
+<style>
+    #gantt-chart {
+        width: 600px;
+        height: 200px;
+        border: 1px solid #ccc;
+        margin-top: 20px;
+    }
+</style>
+
+<div id="gantt-chart"></div>
